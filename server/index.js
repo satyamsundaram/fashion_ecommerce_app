@@ -11,7 +11,7 @@ const {createCategoriesTable} = require('./db/schemas/categories');
 const {createProductsTable} = require('./db/schemas/products');
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
