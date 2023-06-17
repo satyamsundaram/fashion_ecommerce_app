@@ -21,6 +21,9 @@ createUsersTable().then(() => createAddressesTable());
 createCategoriesTable().then(() => createProductsTable());
 
 // Routes
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+})
 app.use('/users', userRoutes);
 app.use('/categories', categoryRoutes);
 app.use('/products', productRoutes);

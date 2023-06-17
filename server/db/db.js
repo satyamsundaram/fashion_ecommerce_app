@@ -1,13 +1,17 @@
 const {Pool} = require("pg");
 
 // create a new PostgreSQL connection pool
+// const pool = new Pool({
+//     user: 'fashun',
+//     host: 'localhost',
+//     database: 'fashun',
+//     password: process.env.DB_PASSWORD,
+//     port: 5432
+// });
+
 const pool = new Pool({
-    user: 'fashun',
-    host: 'localhost',
-    database: 'fashun',
-    password: process.env.DB_PASSWORD,
-    port: 5432
-});
+    connectionString: process.env.POSTGRES_URL + "?sslmode=require",
+  })
 
 // test connection
 pool.query('SELECT NOW()', (err, res) => {
