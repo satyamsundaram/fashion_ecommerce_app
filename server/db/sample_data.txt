@@ -1,0 +1,28 @@
+-- Populating Categories table
+INSERT INTO Categories (name, created_at, updated_at)
+VALUES
+    ('Women''s Clothing', NOW(), NOW()),
+    ('Accessories', NOW(), NOW());
+
+-- Populating Subcategories table
+INSERT INTO Subcategories (name, category_id, created_at, updated_at)
+VALUES
+    ('Tops', 1, NOW(), NOW()),
+    ('Bottoms', 1, NOW(), NOW()),
+    ('Dresses', 1, NOW(), NOW()),
+    ('Shoes', 1, NOW(), NOW()),
+    ('Bags', 2, NOW(), NOW());
+
+-- Populating Products table
+INSERT INTO Products (name, price, description, subcategory_id, created_at, updated_at)
+VALUES
+    ('Trendy Blouse', 29.99, 'Stylish and comfortable blouse for women', 1, NOW(), NOW()),
+    ('Skinny Jeans', 59.99, 'Slim-fit denim jeans for women', 2, NOW(), NOW()),
+    ('Elegant Maxi Dress', 79.99, 'Flowy and elegant maxi dress', 3, NOW(), NOW()),
+    ('High Heel Shoes', 49.99, 'Stylish high heel shoes for women', 4, NOW(), NOW()),
+    ('Leather Handbag', 99.99, 'Luxurious leather handbag', 5, NOW(), NOW()),
+    ('Casual T-Shirt', 19.99, 'Comfortable and casual t-shirt', 1, NOW(), NOW()),
+    ('Wide-Leg Pants', 69.99, 'Fashionable wide-leg pants', 2, NOW(), NOW()),
+    ('Floral Print Dress', 59.99, 'Charming floral print dress', 3, NOW(), NOW()),
+    ('Sneakers', 39.99, 'Trendy sneakers for women', 4, NOW(), NOW()),
+    ('Crossbody Bag', 79.99, 'Stylish crossbody bag', 5, NOW(), NOW());

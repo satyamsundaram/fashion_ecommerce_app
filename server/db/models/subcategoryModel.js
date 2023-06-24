@@ -3,78 +3,78 @@ const {Pool} = require('pg');
 // Get the PostgreSQL connection pool from db.js
 const pool = require('../db');
 
-// Get the products table name
-const TABLE_NAME = 'products';
+// Get the subcategories table name
+const TABLE_NAME = 'subcategories';
 
-// Create a new product
-const createProduct = async ({name, price, description, subcategory_id}) => {
+// Create a new subcategory
+const createSubcategory = async ({name, category_id}) => {
     try {
         const client = await pool.connect();
         const result = await client.query(
-        `INSERT INTO ${TABLE_NAME} (name, price, description, subcategory_id) VALUES ($1, $2, $3, $4) RETURNING *`,
-        [name, price, description, subcategory_id]
+        `INSERT INTO ${TABLE_NAME} (name, category_id) VALUES ($1, $2) RETURNING *`,
+        [name, category_id]
         );
         client.release();
         return result.rows[0];
     } catch (error) {
-        console.error('Error creating product:', error);
+        console.error('Error creating subcategory:', error);
         throw error;
     }
 };
 
-// Get all products
-const getAllProducts = async () => {
+// Get all subcategories
+const getAllSubcategories = async () => {
     try {
         const client = await pool.connect();
         const result = await client.query(`SELECT * FROM ${TABLE_NAME}`);
         client.release();
         return result.rows;
     } catch (error) {
-        console.error('Error retrieving products:', error);
+        console.error('Error retrieving subcategories:', error);
         throw error;
     }
 };
 
-// Get a product by id
-const getProduct = async(id) => {
+// Get a subcategory by id
+const getSubcategory = async(id) => {
     try {
         const client = await pool.connect();
         const result = await client.query(`SELECT * FROM ${TABLE_NAME} WHERE id = $1`, [id]);
         client.release();
         return result.rows[0];
     } catch (error) {
-        console.error('Error retrieving product:', error);
+        console.error('Error retrieving subcategory:', error);
         throw error;
     }
 };
 
-// Update a product by id
-const updateProduct = async(id, {name, price, description, subcategory_id}) => {
+// Update a subcategory by id
+const updateSubcategory = async(id, {name, category_id}) => {
     try {
         const client = await pool.connect();
         const result = await client.query(
-        `UPDATE ${TABLE_NAME} SET name = $1, price = $2, description = $3, subcategory_id = $4, updated_at = NOW() WHERE id = $5 RETURNING *`,
-        [name, price, description, subcategory_id, id]
+        `UPDATE ${TABLE_NAME} SET name = $1, category_id = $2, updated_at = NOW() WHERE id = $3 RETURNING *`,
+        [name, category_id, id]
         );
         client.release();
         return result.rows[0];
     } catch (error) {
-        console.error('Error updating product:', error);
+        console.error('Error updating subcategory:', error);
         throw error;
     }
 };
 
-// Delete a product by id
-const deleteProduct = async(id) => {
+// Delete a subcategory by id
+const deleteSubcategory = async(id) => {
     try {
         const client = await pool.connect();
         const result = await client.query(`DELETE FROM ${TABLE_NAME} WHERE id = $1`, [id]);
         client.release();
         return result.rows[0];
     } catch (error) {
-        console.error('Error deleting product:', error);
+        console.error('Error deleting subcategory:', error);
         throw error;
     }
 };
 
-module.exports = { createProduct, getAllProducts, getProduct, updateProduct, deleteProduct };
+module.exports = { createSubcategory, getAllSubcategories, getSubcategory, updateSubcategory, deleteSubcategory };

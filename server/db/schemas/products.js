@@ -10,7 +10,7 @@ const createProductsTable = async () => {
                 name VARCHAR(255) NOT NULL,
                 price NUMERIC(10, 2) NOT NULL,
                 description TEXT,
-                category_id INT REFERENCES categories(id),
+                subcategory_id INT REFERENCES subcategories(id),
                 created_at TIMESTAMPTZ DEFAULT NOW(),
                 updated_at TIMESTAMPTZ DEFAULT NOW()
             );
