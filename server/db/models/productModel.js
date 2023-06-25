@@ -7,12 +7,12 @@ const pool = require('../db');
 const TABLE_NAME = 'products';
 
 // Create a new product
-const createProduct = async ({name, price, description, subcategory_id}) => {
+const createProduct = async ({name, price, description, stock_count, subcategory_id}) => {
     try {
         const client = await pool.connect();
         const result = await client.query(
-        `INSERT INTO ${TABLE_NAME} (name, price, description, subcategory_id) VALUES ($1, $2, $3, $4) RETURNING *`,
-        [name, price, description, subcategory_id]
+        `INSERT INTO ${TABLE_NAME} (name, price, description, stock_count, subcategory_id) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
+        [name, price, description, stock_count, subcategory_id]
         );
         client.release();
         return result.rows[0];
@@ -49,12 +49,12 @@ const getProduct = async(id) => {
 };
 
 // Update a product by id
-const updateProduct = async(id, {name, price, description, subcategory_id}) => {
+const updateProduct = async(id, {name, price, description, stock_count, subcategory_id}) => {
     try {
         const client = await pool.connect();
         const result = await client.query(
-        `UPDATE ${TABLE_NAME} SET name = $1, price = $2, description = $3, subcategory_id = $4, updated_at = NOW() WHERE id = $5 RETURNING *`,
-        [name, price, description, subcategory_id, id]
+        `UPDATE ${TABLE_NAME} SET name = $1, price = $2, description = $3, stock_count = $4, subcategory_id = $5, updated_at = NOW() WHERE id = $5 RETURNING *`,
+        [name, price, description, stock_count, subcategory_id, id]
         );
         client.release();
         return result.rows[0];

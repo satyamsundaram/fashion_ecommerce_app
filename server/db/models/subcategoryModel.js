@@ -1,7 +1,7 @@
 const {Pool} = require('pg');
 
 // Get the PostgreSQL connection pool from db.js
-const pool = require('../db');
+const pool = require('../db');  
 
 // Get the subcategories table name
 const TABLE_NAME = 'subcategories';

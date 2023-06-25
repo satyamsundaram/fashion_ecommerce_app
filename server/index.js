@@ -7,10 +7,17 @@ const categoryRoutes = require('./routes/categories');
 const subcategoryRoutes = require('./routes/subcategories');
 
 const {createUsersTable} = require('./db/schemas/users');
-const {createAddressesTable} = require('./db/schemas/addresses');
+const {createUserAddressesTable} = require('./db/schemas/userAddresses');
+const {createUserPhoneNumbersTable} = require('./db/schemas/userPhoneNumbers');
+const {createCartItemsTable} = require('./db/schemas/cartItems');
+
 const {createCategoriesTable} = require('./db/schemas/categories');
 const {createSubcategoriesTable} = require('./db/schemas/subcategories');
 const {createProductsTable} = require('./db/schemas/products');
+const {createProductImagesTable} = require('./db/schemas/productImages');
+
+const {createOrdersTable} = require('./db/schemas/orders');
+const {createOrderItemsTable} = require('./db/schemas/orderItems');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,12 +26,33 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
 
-createUsersTable().then(() => createAddressesTable());
-createCategoriesTable().then(() => createSubcategoriesTable().then(() => createProductsTable()));
+async function createTables() {
+  try {
+    await createUsersTable();
+    await createUserAddressesTable();
+    await createUserPhoneNumbersTable();
+
+    await createCategoriesTable();
+    await createSubcategoriesTable();
+    await createProductsTable();
+    await createProductImagesTable();
+    await createCartItemsTable();
+
+    await createOrdersTable();
+    await createOrderItemsTable();
+    
+    console.log('Tables created successfully.');
+  } catch (error) {
+    console.error('Error creating tables:', error);
+  }
+}
+
+createTables();
+
 
 // Routes
 app.get('/', (req, res) => {
-  res.send('Hello World!');
+  res.send('The API is up and running!');
 })
 app.use('/users', userRoutes);
 app.use('/subcategories', subcategoryRoutes);
